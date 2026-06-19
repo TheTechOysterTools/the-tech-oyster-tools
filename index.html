@@ -1,0 +1,723 @@
+# Define the HTML content provided by the user.
+html_content = """
+<div class="sg-comfort-guide">
+<style>
+
+  :root {
+    --ink: #2A2622;
+    --ink-soft: #4A443D;
+    --graphite: #1F1D1B;
+    --foam: #D9C6A8;
+    --foam-pale: #ECE2CC;
+    --clay: #C1623D;
+    --clay-dark: #9C4A2C;
+    --paper: #F7F3EC;
+    --paper-warm: #F1EADC;
+    --line: #D8CDB8;
+    --good: #4F6B4A;
+  }
+
+  .sg-comfort-guide, .sg-comfort-guide * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .sg-comfort-guide { scroll-behavior: smooth; }
+
+  .sg-comfort-guide {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    line-height: 1.6;
+    font-size: 18px;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--graphite);
+    color: var(--paper);
+    padding: 86px 0 70px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 90px solid rgba(217,198,168,0.07);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    right: 8%;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    border: 60px solid rgba(193,98,61,0.10);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--foam);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .eyebrow .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--clay);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 5.4vw, 58px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    max-width: 760px;
+    color: var(--paper);
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--clay);
+  }
+
+  .hero-sub {
+    margin-top: 22px;
+    max-width: 560px;
+    font-size: 19px;
+    color: #C9C2B6;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-meta {
+    margin-top: 36px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px;
+    color: #9B9388;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-meta strong { color: var(--foam); font-weight: 600; }
+
+  /* ---------- INTRO ---------- */
+  .intro {
+    padding: 56px 0 10px;
+  }
+
+  .intro p {
+    font-size: 19px;
+    color: var(--ink-soft);
+    max-width: 700px;
+  }
+
+  .intro p + p { margin-top: 18px; }
+
+  .intro strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- PICKER (signature element) ---------- */
+  .picker-section {
+    padding: 50px 0 80px;
+  }
+
+  .picker-label {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clay-dark);
+    margin-bottom: 10px;
+  }
+
+  .picker-title {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--graphite);
+    margin-bottom: 8px;
+  }
+
+  .picker-help {
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 30px;
+  }
+
+  .constraint-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .constraint-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .constraint-card {
+    background: var(--paper-warm);
+    border: 2px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 16px;
+    cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+    text-align: left;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .constraint-card:hover {
+    border-color: var(--foam);
+    transform: translateY(-1px);
+  }
+
+  .constraint-card:focus-visible {
+    outline: 3px solid var(--clay);
+    outline-offset: 2px;
+  }
+
+  .constraint-card.active {
+    background: var(--graphite);
+    border-color: var(--graphite);
+  }
+
+  .constraint-card .icon {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .constraint-card .label {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .constraint-card.active .label { color: var(--paper); }
+
+  .constraint-card .sub {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .constraint-card.active .sub { color: #B5ACA0; }
+
+  .picker-result {
+    margin-top: 28px;
+    background: var(--paper-warm);
+    border-left: 4px solid var(--clay);
+    border-radius: 4px;
+    padding: 26px 28px;
+    display: none;
+  }
+
+  .picker-result.visible { display: block; }
+
+  .picker-result .result-eyebrow {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clay-dark);
+    margin-bottom: 10px;
+  }
+
+  .picker-result h3 {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-size: 22px;
+    color: var(--graphite);
+    margin-bottom: 12px;
+  }
+
+  .picker-result p {
+    font-size: 16.5px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+
+  .picker-result .avoid {
+    margin-top: 14px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    color: var(--clay-dark);
+    font-weight: 600;
+  }
+
+  .picker-empty {
+    margin-top: 28px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    color: #A39B8C;
+    font-style: italic;
+  }
+
+  /* ---------- FIELD NOTES SECTIONS ---------- */
+  .field-notes {
+    padding: 30px 0 90px;
+  }
+
+  .section-head {
+    margin-bottom: 36px;
+    padding-top: 50px;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-head:first-child { border-top: none; padding-top: 0; }
+
+  .section-tag {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clay-dark);
+    margin-bottom: 10px;
+  }
+
+  .section-head h2 {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: var(--graphite);
+    line-height: 1.15;
+    max-width: 620px;
+  }
+
+  .note-block {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 640px) {
+    .note-block { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  .note-block .what {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--graphite);
+    padding-top: 3px;
+  }
+
+  .note-block .what .tiny {
+    display: block;
+    font-weight: 500;
+    color: var(--ink-soft);
+    font-size: 12.5px;
+    margin-top: 3px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .note-block .detail p { font-size: 17px; color: var(--ink-soft); margin-bottom: 8px; }
+  .note-block .detail strong { color: var(--ink); font-weight: 600; }
+
+  .pull-stat {
+    background: var(--graphite);
+    color: var(--paper);
+    border-radius: 10px;
+    padding: 30px 32px;
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+  }
+
+  @media (max-width: 640px) {
+    .pull-stat { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+
+  .pull-stat .num {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-weight: 800;
+    font-size: 44px;
+    color: var(--foam);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .pull-stat p {
+    font-family: 'Archivo', sans-serif;
+    font-size: 15px;
+    color: #C9C2B6;
+    margin: 0;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing {
+    background: var(--paper-warm);
+    padding: 60px 0 80px;
+    border-top: 1px solid var(--line);
+  }
+
+  .closing h2 {
+    font-family: 'Archivo Expanded', sans-serif;
+    font-size: 26px;
+    color: var(--graphite);
+    margin-bottom: 14px;
+  }
+
+  .closing p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 620px;
+  }
+
+  .closing p + p { margin-top: 12px; }
+
+  .sg-comfort-guide footer {
+    padding: 30px 0 50px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 13px;
+    color: #A39B8C;
+  }
+
+</style>
+
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span>SoundGuys · Comfort &amp; Fit</div>
+    <h1>The right headphones aren't a <em>type</em>. They're a <em>fit</em> for your specific head.</h1>
+    <p class="hero-sub">Most buying guides sort headphones by shape and call it comfort advice. But the thing that actually makes a pair hurt — or disappear on your head for eight hours — is what you're doing while you wear them.</p>
+    <div class="hero-meta">
+      <span><strong>8</strong> real-world constraints</span>
+      <span><strong>0</strong> generic "try before you buy" tips</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <p>Search "most comfortable headphones" and you'll get the same checklist everywhere: soft ear pads, adjustable headband, lightweight build. None of it is wrong. None of it is useful, either — because comfort isn't a spec, it's <strong>a collision between a headphone's geometry and your specific situation.</strong></p>
+    <p>Glasses change where the clamp lands. A side-sleeping habit rules out half the catalog before sound quality even enters the conversation. A gym session turns "comfortable" into "comfortable when soaked in sweat." So instead of sorting by shape, we sorted by the constraint that's actually doing the damage.</p>
+  </div>
+
+  <div class="picker-section">
+    <div class="picker-label">Start here</div>
+    <div class="picker-title">What's actually getting in the way?</div>
+    <div class="picker-help">Tap the constraint closest to yours. We'll tell you what to look for — and what to walk away from.</div>
+
+    <div class="constraint-grid" id="constraintGrid">
+      <button class="constraint-card" data-key="glasses">
+        <span class="icon"></span>
+        <span class="label">I wear glasses</span>
+        <span class="sub">Arms + clamp = pressure points</span>
+      </button>
+      <button class="constraint-card" data-key="canal">
+        <span class="icon"></span>
+        <span class="label">Small or sensitive ear canals</span>
+        <span class="sub">Tips that never quite seal right</span>
+      </button>
+      <button class="constraint-card" data-key="sleep">
+        <span class="icon"></span>
+        <span class="label">I listen lying down / side-sleep</span>
+        <span class="sub">Anything that protrudes, fails</span>
+      </button>
+      <button class="constraint-card" data-key="gym">
+        <span class="icon"></span>
+        <span class="label">Sweaty workouts</span>
+        <span class="sub">Grip and moisture, not just sound</span>
+      </button>
+      <button class="constraint-card" data-key="wfh">
+        <span class="icon"></span>
+        <span class="label">All-day calls, WFH</span>
+        <span class="sub">8+ hours, mic matters too</span>
+      </button>
+      <button class="constraint-card" data-key="hair">
+        <span class="icon"></span>
+        <span class="label">Big hair, braids, locs</span>
+        <span class="sub">Headband contact and slip</span>
+      </button>
+      <button class="constraint-card" data-key="hearing">
+        <span class="icon">僚</span>
+        <span class="label">I wear hearing aids</span>
+        <span class="sub">Behind-ear real estate is taken</span>
+      </button>
+      <button class="constraint-card" data-key="jaw">
+        <span class="icon">醴</span>
+        <span class="label">Jaw tension / TMJ</span>
+        <span class="sub">Clamp force hits a sore spot</span>
+      </button>
+      <button class="constraint-card" data-key="travel">
+        <span class="icon">✈</span>
+        <span class="label">Long flights, commutes</span>
+        <span class="sub">Heat buildup over hours, not minutes</span>
+      </button>
+    </div>
+
+    <div class="picker-empty" id="emptyState">No constraint selected yet — the breakdown will appear here.</div>
+
+    <div class="picker-result" id="pickerResult">
+      <div class="result-eyebrow" id="resultTag">For: Glasses wearers</div>
+      <h3 id="resultTitle">Look for soft, low-profile arms — not just "thick padding"</h3>
+      <p id="resultBody">Padding is the wrong fix here. Most discomfort for glasses wearers comes from the headband clamping the temple arms straight into your skull, not from the cushion material itself.</p>
+      <p id="resultBody2">Earpads with a recessed channel or angled-back design give the arms somewhere to go instead of being crushed flat against your head.</p>
+      <div class="avoid" id="resultAvoid">Avoid: high clamp-force over-ear models, thin pleather pads with no give</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="field-notes">
+
+    <div class="section-head">
+      <div class="section-tag">01 — The Pressure Problem</div>
+      <h2>When the headphone fights something already on your head</h2>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Glasses<span class="tiny">arms under the band</span></div>
+      <div class="detail">
+        <p>The clamp force that feels fine on a bare head becomes a slow ache once it's pressing glasses arms into your temples. This compounds over a session — fine at minute ten, unbearable by minute ninety.</p>
+        <p><strong>What to check:</strong> earpad depth and whether the foam has a soft channel near the temple, not just overall thickness. A few brands now explicitly test and market "glasses-friendly" clamp force — that's a real spec, not marketing fluff, if they publish a number.</p>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Hearing aids<span class="tiny">behind-the-ear hardware</span></div>
+      <div class="detail">
+        <p>Over-ear headphones and behind-the-ear hearing aids are competing for the exact same real estate. Most "comfortable" over-ears were never tested against that conflict.</p>
+        <p><strong>What to check:</strong> in-ear or open-ear styles that don't route over the top of the ear at all sidestep the conflict entirely, rather than trying to out-cushion it.</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-tag">02 — The Motion Problem</div>
+      <h2>When your body is doing something other than sitting still</h2>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Side-sleeping<span class="tiny">lying on your ear</span></div>
+      <div class="detail">
+        <p>Any headphone with cups, hooks, or stems that protrude past the side of your head will get pressed directly into your skull the moment you lie down. This isn't a comfort tier issue — it's a geometry issue. Even the most plush over-ear will fail here.</p>
+        <p><strong>What to check:</strong> flat-profile in-ear buds or thin sleep-specific headbands designed to sit under a pillow without a pressure point.</p>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Sweaty workouts<span class="tiny">grip + moisture</span></div>
+      <div class="detail">
+        <p>Comfort under sweat is a different test than comfort sitting at a desk. Foam that feels plush when dry can turn slick and start sliding within twenty minutes of moving. The failure mode isn't pain — it's the headphone working itself loose and needing constant readjustment.</p>
+        <p><strong>What to check:</strong> ear hooks or wing tips with actual grip texture, and an IPX sweat rating, which tells you the company tested for this rather than assuming over-ear foam would hold up.</p>
+      </div>
+    </div>
+
+    <div class="pull-stat">
+      <div class="num">60/60</div>
+      <p>The rule audiologists point to for listening fatigue: 60% volume, 60 minutes at a time, before giving your ears a break — regardless of how comfortable the headphone itself feels. Comfort and hearing fatigue are separate problems that happen to share a symptom.</p>
+    </div>
+
+    <div class="section-head">
+      <div class="section-tag">03 — The Duration Problem</div>
+      <h2>When the session is the whole workday, not a commute</h2>
+    </div>
+
+    <div class="note-block">
+      <div class="what">WFH / all-day calls<span class="tiny">8+ hours, mic included</span></div>
+      <div class="detail">
+        <p>At this duration, weight matters more than padding thickness — a few extra grams compounds over hours in a way it never does over a 40-minute commute. Heat buildup inside closed-back cups becomes its own discomfort, separate from pressure.</p>
+        <p><strong>What to check:</strong> open-back or perforated earpads for airflow, and total headset weight under roughly 250g as a rough comfort ceiling for full workdays.</p>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Long flights, commutes<span class="tiny">hours, not minutes</span></div>
+      <div class="detail">
+        <p>Similar duration problem to WFH, but with the added variable of head position against a seat or window — a thick headband that's fine standing up becomes a pressure point reclined.</p>
+        <p><strong>What to check:</strong> a low-profile headband top, since that's the part making contact with a headrest, not just the earcups.</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-tag">04 — The Anatomy Problem</div>
+      <h2>When standard sizing was never built for your head</h2>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Small/sensitive canals<span class="tiny">seal that never feels right</span></div>
+      <div class="detail">
+        <p>The default ear tips that ship with most earbuds are sized for an average that doesn't include a lot of real ears. A seal that's slightly too big doesn't just sound worse — it actively pries at the canal, which reads as discomfort, not as "wrong size."</p>
+        <p><strong>What to check:</strong> whether the brand ships 4+ tip sizes (not the standard 3), and consider foam tips as a swap-in — they compress to fit rather than relying on a single mold.</p>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Big hair, braids, locs<span class="tiny">headband contact and slip</span></div>
+      <div class="detail">
+        <p>A headband built for sitting flat against a scalp behaves differently over volume — it either perches unstably or the clamp force gets distributed unevenly, creating hot spots where it does make contact.</p>
+        <p><strong>What to check:</strong> headbands with a wider adjustment range and multiple contact points along the band, rather than a single padded strip.</p>
+      </div>
+    </div>
+
+    <div class="note-block">
+      <div class="what">Jaw tension / TMJ<span class="tiny">clamp force on a sore joint</span></div>
+      <div class="detail">
+        <p>Clamp force is measured front-to-back across the head, which means it runs directly through the jaw hinge for a lot of people. A headphone that's "low clamp" by spec can still concentrate force in exactly the wrong place depending on cup shape.</p>
+        <p><strong>What to check:</strong> over-ear cups with extra depth (more room before the cushion touches your ear) tend to sit further back from the jaw joint than shallow on-ear designs.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="closing">
+  <div class="wrap">
+    <h2>The honest version of "try before you buy"</h2>
+    <p>You can't test clamp force or seal depth from a product photo, and "comfortable" on a spec sheet means nothing without knowing comfortable <em>for what</em>. The constraint is the variable that actually predicts whether a headphone disappears on your head or reminds you it's there every twenty minutes.</p>
+    <p>If you know your constraint, you already know more than most buying guides bother to ask.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">SoundGuys · Comfort &amp; Fit Series</div>
+</footer>
+
+
+</div>
+
+<script>
+
+  const cards = document.querySelectorAll('.constraint-card');
+  const resultBox = document.getElementById('pickerResult');
+  const emptyState = document.getElementById('emptyState');
+
+  const data = {
+    glasses: {
+      tag: 'For: Glasses wearers',
+      title: 'Look for soft, low-profile arms — not just "thick padding"',
+      body: 'Padding is the wrong fix here. Most discomfort for glasses wearers comes from the headband clamping the temple arms straight into your skull, not from the cushion material itself.',
+      body2: 'Earpads with a recessed channel or angled-back design give the arms somewhere to go instead of being crushed flat against your head.',
+      avoid: 'Avoid: high clamp-force over-ear models, thin pleather pads with no give'
+    },
+    canal: {
+      tag: 'For: Small or sensitive ear canals',
+      title: 'The seal is fighting you, not the sound quality',
+      body: 'A tip that\'s slightly too large doesn\'t just leak bass — it actively presses against canal walls for hours. That pressure reads as generic "earbud discomfort" even though the real cause is one specific fit mismatch.',
+      body2: 'Look for kits with 4+ tip sizes instead of the standard 3, and consider foam tips, which compress to your shape rather than relying on a single rigid mold.',
+      avoid: 'Avoid: earbuds that ship with only S/M/L silicone tips and no foam option'
+    },
+    sleep: {
+      tag: 'For: Side-sleepers / lying-down listening',
+      title: 'Anything that protrudes past your head will lose this fight',
+      body: 'This is a geometry problem, not a softness problem. Even the plushest over-ear cup gets pressed directly into your skull the moment you lie on it — no amount of padding fixes that.',
+      body2: 'Flat-profile in-ear buds or thin, sleep-specific headbands designed to sit under a pillow are the only real fix here.',
+      avoid: 'Avoid: over-ear and on-ear headphones, earbuds with long protruding stems'
+    },
+    gym: {
+      tag: 'For: Sweaty workouts',
+      title: 'The test is comfort at minute twenty, soaked — not comfort dry',
+      body: 'Foam that feels great dry can turn slick fast once you\'re moving. The failure mode usually isn\'t pain — it\'s the fit working itself loose and needing constant readjustment mid-set.',
+      body2: 'Ear hooks or wing tips with real grip texture and an IPX sweat rating tell you the comfort was actually tested under these conditions, not assumed.',
+      avoid: 'Avoid: smooth pleather pads, buds with no stabilizing fin or hook'
+    },
+    wfh: {
+      tag: 'For: All-day calls, WFH',
+      title: 'At 8 hours, weight beats padding thickness',
+      body: 'A few extra grams that are unnoticeable on a commute compound into real discomfort across a full workday. Heat buildup inside closed cups becomes its own separate issue from pressure.',
+      body2: 'Open-back or perforated earpads for airflow, and a total headset weight under roughly 250g, are better predictors of all-day comfort than pad softness alone.',
+      avoid: 'Avoid: heavy closed-back over-ears marketed mainly on bass, not on wear time'
+    },
+    hair: {
+      tag: 'For: Big hair, braids, locs',
+      title: 'The headband needs range, not just a thicker pad',
+      body: 'A band built to sit flat on a scalp behaves differently with volume underneath it — it either perches unstably or the clamp force lands unevenly, creating hot spots exactly where it does make contact.',
+      body2: 'Look for a wide adjustment range and multiple contact points along the band rather than one single padded strip doing all the work.',
+      avoid: 'Avoid: narrow-range headbands, single-point padded headbands'
+    },
+    hearing: {
+      tag: 'For: Hearing aid wearers',
+      title: 'Sidestep the real estate conflict instead of cushioning around it',
+      body: 'Over-ear headphones and behind-the-ear hearing aids are claiming the exact same space on your head. Most "comfortable" over-ear designs were never built or tested with that conflict in mind.',
+      body2: 'In-ear or open-ear styles that skip routing over the top of the ear avoid the conflict entirely, rather than trying to cushion around hardware that\'s already there.',
+      avoid: 'Avoid: over-ear and on-ear designs that route directly behind the ear'
+    },
+    jaw: {
+      tag: 'For: Jaw tension / TMJ',
+      title: 'Clamp force runs straight through the jaw hinge for a lot of people',
+      body: 'Clamp is measured front-to-back across the head, and that line often passes right through the jaw joint. A headphone that\'s "low clamp" on a spec sheet can still concentrate pressure in the wrong spot depending on cup depth.',
+      body2: 'Deeper over-ear cups, ones with more room before the cushion touches your ear, tend to sit further back from the jaw joint than shallow on-ear designs.',
+      avoid: 'Avoid: shallow on-ear designs, any headphone advertised mainly on "tight, secure fit"'
+    },
+    travel: {
+      tag: 'For: Long flights, commutes',
+      title: 'It\'s a duration problem with one extra variable: a headrest',
+      body: 'Similar to all-day WFH wear, but with your head pressed against a seat or window for hours. A headband top that\'s fine standing up can become a pressure point the moment you recline.',
+      body2: 'A low-profile headband top matters here as much as the earcups, since that\'s the part actually making contact with a headrest.',
+      avoid: 'Avoid: headphones with a thick, raised headband seam or hard plastic top'
+    }
+  };
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      const key = card.getAttribute('data-key');
+      const info = data[key];
+
+      document.getElementById('resultTag').textContent = info.tag;
+      document.getElementById('resultTitle').textContent = info.title;
+      document.getElementById('resultBody').textContent = info.body;
+      document.getElementById('resultBody2').textContent = info.body2;
+      document.getElementById('resultAvoid').textContent = info.avoid;
+
+      resultBox.classList.add('visible');
+      emptyState.style.display = 'none';
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+</script>
+"""
+
+file_path = "comfort_decision_guide.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print(f"File created: {file_path}")
